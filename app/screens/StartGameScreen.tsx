@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import PrimaryButton from "../components/PrimaryButton";
+import Title from "../components/Title";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstructionText";
 import Colors from "../constants/Colors";
 
 interface StartGameScreenProps {
@@ -30,8 +32,10 @@ const StartGameScreen = ({ pickedNumberHandler }: StartGameScreenProps) => {
   }
 
   return (
-    <SafeAreaView>
-      <View style={styles.inputContainer}>
+    <View style={styles.rootContainer}>
+      <Title>Guess My Number</Title>
+      <Card>
+        <InstructionText>Enter a Number</InstructionText>
         <TextInput
           style={styles.numberInput}
           maxLength={2}
@@ -53,24 +57,16 @@ const StartGameScreen = ({ pickedNumberHandler }: StartGameScreenProps) => {
             </PrimaryButton>
           </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </Card>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    justifyContent: "center",
+  rootContainer: {
+    flex: 1,
+    marginTop: 100,
     alignItems: "center",
-    backgroundColor: Colors.primary700,
-    borderRadius: 16,
-    // marginVertical: 16,
-    padding: 12,
-    shadowColor: Colors.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 6,
-    elevation: 8,
   },
   numberInput: {
     height: 56,

@@ -14,6 +14,8 @@ const Colors = {
   danger500: "#f43f5e", // Rose Red
   danger600: "#e11d48",
 
+  accent500: "#ddb52f", // Yellow
+
   white: "#ffffff",
   black: "#000000",
   transparent: "transparent",

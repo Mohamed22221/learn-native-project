@@ -5,17 +5,45 @@ import { ImageBackground, StyleSheet, View } from "react-native";
 import Animated, { FadeInUp } from "react-native-reanimated";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Colors from "./constants/Colors";
+import GameOverScreen from "./screens/GameOverScreen";
 import GameScreen from "./screens/GameScreen";
 import StartGameScreen from "./screens/StartGameScreen";
 export default function WelcomeScreen() {
   const [userNumber, setUserNumber] = useState<number | null>(null);
+  const [gameIsOver, setGameIsOver] = useState(true);
+  const [guessRounds, setGuessRounds] = useState(0);
 
   function pickedNumberHandler(pickedNumber: number) {
     setUserNumber(pickedNumber);
+    setGameIsOver(false);
   }
+
+  function gameOverHandler(numberOfRounds: number) {
+    setGameIsOver(true);
+    setGuessRounds(numberOfRounds);
+  }
+
+  function startNewGameHandler() {
+    setUserNumber(null);
+    setGuessRounds(0);
+  }
+
   let screen = <StartGameScreen pickedNumberHandler={pickedNumberHandler} />;
-  if (userNumber) {
-    screen = <GameScreen userNumber={userNumber} onGameOver={() => {}} />;
+
+  if (userNumber && !gameIsOver) {
+    screen = (
+      <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
+    );
+  }
+
+  if (gameIsOver && userNumber) {
+    screen = (
+      <GameOverScreen
+        userNumber={userNumber}
+        roundsNumber={guessRounds}
+        onStartNewGame={startNewGameHandler}
+      />
+    );
   }
   return (
     <SafeAreaProvider style={styles.container}>
